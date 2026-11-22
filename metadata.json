@@ -1,0 +1,6 @@
+{
+  "name": "Travel Trails — Experience the World Better",
+  "description": "Premium minimal travel agency website for Travel Trails (Bangalore & Payangadi). Curated resort bookings, domestic tours, and international adventures.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

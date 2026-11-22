@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+/*
+ * ============================================================================
+ * TRAVEL TRAILS — DESIGN TOKENS & GLOBAL STYLES
+ * Edit colours below in Visual Studio Code to update the site palette.
+ * ============================================================================
+ */
+@theme {
+  --color-primary: #347FBF;
+  --color-ink: #1E3348;
+  --color-teal: #087B68;
+  --color-gold: #EAB52A;
+  --color-surface: #F5F8FC;
+
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  --brand-primary: #347FBF;
+  --brand-white: #FFFFFF;
+  --brand-teal: #087B68;
+  --brand-gold: #EAB52A;
+  --brand-ink: #1E3348;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-serif);
+  text-wrap: balance;
+}
+
+/* Subtle page transition animation */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: fadeSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ============================================================================
+   DESTINATIONS HORIZONTAL SLIDING GALLERY
+   ============================================================================ */
+.tt-gallery-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  user-select: none;
+}
+
+.tt-gallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+.tt-gallery-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.tt-gallery-card {
+  position: relative;
+  flex: 0 0 76%;
+  aspect-ratio: 3 / 4;
+  border-radius: 14px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  background-color: #347FBF;
+  display: block;
+  text-decoration: none;
+}
+
+@media (min-width: 640px) {
+  .tt-gallery-track {
+    gap: 1.5rem;
+  }
+  .tt-gallery-card {
+    flex: 0 0 42%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tt-gallery-card {
+    flex: 0 0 calc((100% - 3rem) / 3.2);
+  }
+}
+
+@media (min-width: 1280px) {
+  .tt-gallery-card {
+    flex: 0 0 calc((100% - 4.5rem) / 3.85);
+  }
+}
+
+.tt-gallery-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.tt-gallery-card:hover .tt-gallery-card-img,
+.tt-gallery-card:focus-visible .tt-gallery-card-img {
+  transform: scale(1.06);
+}
+
+.tt-gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(18, 45, 72, 0.86) 0%,
+    rgba(18, 45, 72, 0.34) 42%,
+    rgba(18, 45, 72, 0.04) 100%
+  );
+  pointer-events: none;
+}
+
+/* ============================================================================
+   LOADING SCREEN ANIMATIONS
+   ============================================================================ */
+@keyframes ttLoaderLogoIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.93);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ttLoaderTextIn {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ttPlaneFlight {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(200px);
+    opacity: 0.9;
+  }
+}
+
+.tt-loader-logo {
+  animation: ttLoaderLogoIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.tt-loader-tagline {
+  opacity: 0;
+  animation: ttLoaderTextIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
+}
+
+.tt-loader-subtext {
+  opacity: 0;
+  animation: ttLoaderTextIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+.tt-loader-plane {
+  animation: ttPlaneFlight 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .page-enter,
+  .tt-loader-logo,
+  .tt-loader-tagline,
+  .tt-loader-subtext,
+  .tt-loader-plane {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .tt-gallery-card-img {
+    transition: none;
+  }
+}
